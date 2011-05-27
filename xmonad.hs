@@ -23,10 +23,10 @@ import XMonad.Util.Run
 main :: IO ()
 main = do
    host <- fmap nodeName getSystemID
-   myDzen host xmonad
+   runXmonad host xmonad
 
-myDzen host f = do
-  h <- spawnPipe ("dzen2" ++ " " ++ flags)
+runXmonad host f = do
+  h <- spawnPipe "xmobar ~/.xmonad/xmobar.config"
   sp <- mkSpawner
   f $ defaultConfig
            { logHook = dynamicLogWithPP obPP
@@ -48,16 +48,6 @@ myDzen host f = do
            , manageHook    = manageSpawn sp <+> myManageHook
            }
  where
-    w       = if host == "mammut" then 800 else
-              if host == "foldl" then 700
-              else 900 :: Integer
-    fg      = "'#000000'"
-    bg      = "'#b0c4de'"
-    flags   = "-e '' -w " ++ show w ++ " -ta l -fg "
-              ++ fg ++ " -bg " ++ bg ++ " -fn "
-              ++ if host == "foldl"
-                 then "-*-*-*-*-*-*-12-*-*-*-*-*-*-*"
-                 else "-xos4-terminus-*-*-*-*-12-*-*-*-*-*-*-*"
     tiled   = ResizableTall 2 (3/100) 0.618034 []
     mykeys _ (XConfig {modMask = modm}) = M.fromList $
       [ ((modm, xK_x), sendMessage MirrorShrink)
@@ -112,14 +102,13 @@ instance Transformer ShowAll Window where
 
 obPP :: PP
 obPP = defaultPP
-  { ppCurrent  = dzenColor "green" "red" . wrap "[" "]"
-  , ppVisible  = dzenColor "black" "orange" . pad
-  , ppHidden   = dzenColor "black" "yellow" . wrap "^ " " "
-  , ppHiddenNoWindows = dzenColor "black" "green" . pad
+  { ppCurrent  = xmobarColor "red" "black"
+  , ppVisible  = xmobarColor "orange" "black"
+  , ppHidden   = xmobarColor "yellow" "black"
+  , ppHiddenNoWindows = xmobarColor "green" "black"
   , ppLayout   = (>> "")
-  , ppSep     = " ^fg(grey60)^r(3x3)^fg() "
+  , ppSep     = " "
   }
-
 myTabConfig :: Theme
 myTabConfig = defaultTheme
   { inactiveBorderColor = "#708090"
