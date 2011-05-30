@@ -6,7 +6,6 @@ import qualified XMonad.StackSet as W (shift)
 import System.Posix.Unistd (nodeName, getSystemID)
 import XMonad
 import XMonad.Actions.SpawnOn
-import XMonad.Actions.WindowBringer
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -18,6 +17,8 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.ResizeScreen
 import XMonad.Layout.Tabbed
+import XMonad.Prompt
+import XMonad.Prompt.Window
 import XMonad.Util.Run
 
 main :: IO ()
@@ -63,8 +64,8 @@ runXmonad host f = do
       , ((modm .|. shiftMask, xK_t), spawn "gnome-terminal")
       , ((modm .|. shiftMask, xK_f)
         , withFocused (sendMessage . maximizeRestore))
-      , ((modm, xK_g     ), gotoMenu)
-      , ((modm .|. shiftMask, xK_g     ), bringMenu)
+      , ((modm .|. shiftMask, xK_g     ), windowPromptGoto  defaultXPConfig)
+      , ((modm .|. shiftMask, xK_b     ), windowPromptBring defaultXPConfig)
       , ((0, 0x1008ff11), spawn "amixer -q set Master 1-")
       , ((0, 0x1008ff13), spawn "amixer -q set Master 1+")
       , ((0, 0x1008ff12), spawn "amixer -q set Master toggle")
