@@ -3,7 +3,6 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 import qualified Data.Map as M (union, fromList)
 import qualified XMonad.StackSet as W (shift)
-import System.Posix.Unistd (nodeName, getSystemID)
 import XMonad
 import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
@@ -23,32 +22,49 @@ import XMonad.Util.Run
 
 main :: IO ()
 main = do
-   host <- fmap nodeName getSystemID
-   runXmonad host xmonad
-
-runXmonad host f = do
   h <- spawnPipe "xmobar ~/.xmonad/xmobar.config"
   sp <- mkSpawner
-  f $ defaultConfig
-           { logHook = dynamicLogWithPP obPP
-                           { ppOutput = hPutStrLn h }
-           , keys = \c -> mykeys sp c `M.union` keys defaultConfig c
-           , layoutHook = smartBorders $
-                          maximize $
-                          avoidStruts $
-                          mkToggle (FULL ?? SHOWCONKY ?? SHOWALL ?? EOT) (
-                                  Mirror tiled
-                              ||| tiled
-                              ||| noBorders Full)
-                          ||| tabbed shrinkText myTabConfig
-           , terminal = "xterm"
-           , focusedBorderColor = "#00ff00"
-           , modMask = mod4Mask
-           , startupHook = setWMName "LG3D"
-           , focusFollowsMouse = False
-           , manageHook    = manageSpawn sp <+> myManageHook
-           }
+  xmonad $ defaultConfig
+    { logHook = dynamicLogWithPP obPP
+                    { ppOutput = hPutStrLn h }
+    , keys = \c -> mykeys sp c `M.union` keys defaultConfig c
+    , layoutHook = smartBorders $
+                   maximize $
+                   avoidStruts $
+                   mkToggle (FULL ?? SHOWCONKY ?? SHOWALL ?? EOT) (
+                           Mirror tiled
+                       ||| tiled
+                       ||| noBorders Full)
+                   ||| tabbed shrinkText myTabConfig
+    , terminal = "xterm"
+    , focusedBorderColor = "#00ff00"
+    , modMask = mod4Mask
+    , startupHook = setWMName "LG3D"
+    , focusFollowsMouse = False
+    , manageHook    = manageSpawn sp <+> myManageHook
+    }
  where
+    obPP :: PP
+    obPP = defaultPP
+      { ppCurrent         = xmobarColor "red" "black"
+      , ppVisible         = xmobarColor "orange" "black"
+      , ppHidden          = xmobarColor "yellow" "black"
+      , ppHiddenNoWindows = xmobarColor "green" "black"
+      , ppLayout          = (>> "")
+      , ppTitle           = xmobarColor "magenta" "black"
+      , ppSep             = " "
+      }
+    myTabConfig :: Theme
+    myTabConfig = defaultTheme
+      { inactiveBorderColor = "#708090"
+      , activeBorderColor   = "#5f9ea0"
+      , activeColor         = "#000000"
+      , inactiveColor       = "#333333"
+      , inactiveTextColor   = "#888888"
+      , activeTextColor     = "#87cefa"
+      , fontName            = "-xos4-terminus-*-*-*-*-12-*-*-*-*-*-*-*"
+      , decoHeight          = 15
+      }
     tiled   = ResizableTall 2 (3/100) 0.618034 []
     mykeys _ (XConfig {modMask = modm}) = M.fromList $
       [ ((modm, xK_x), sendMessage MirrorShrink)
@@ -100,25 +116,4 @@ data ShowAll = SHOWALL deriving (Read, Show, Eq, Typeable)
 
 instance Transformer ShowAll Window where
     transform _ x k = k (resizeVertical 750 x)
-
-obPP :: PP
-obPP = defaultPP
-  { ppCurrent  = xmobarColor "red" "black"
-  , ppVisible  = xmobarColor "orange" "black"
-  , ppHidden   = xmobarColor "yellow" "black"
-  , ppHiddenNoWindows = xmobarColor "green" "black"
-  , ppLayout   = (>> "")
-  , ppSep     = " "
-  }
-myTabConfig :: Theme
-myTabConfig = defaultTheme
-  { inactiveBorderColor = "#708090"
-  , activeBorderColor = "#5f9ea0"
-  , activeColor = "#000000"
-  , inactiveColor = "#333333"
-  , inactiveTextColor = "#888888"
-  , activeTextColor = "#87cefa"
-  , fontName = "-xos4-terminus-*-*-*-*-12-*-*-*-*-*-*-*"
-  , decoHeight = 15
-  }
 
