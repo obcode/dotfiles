@@ -11,7 +11,7 @@ autocmd FileType make :set noexpandtab
 " color
 
 hi comment      ctermfg=blue   ctermbg=white guifg=blue guibg=white
-hi SpecialKey   ctermfg=blue   ctermbg=white guifg=blue guibg=white
+hi SpecialKey   ctermfg=red   ctermbg=yellow guifg=red guibg=yellow
 hi LineNr       term=NONE cterm=NONE
 hi normal       term=NONE
 hi nontext      term=NONE cterm=NONE ctermfg=blue   ctermbg=white
@@ -51,7 +51,6 @@ set   expandtab
 set   formatoptions=cqrt
 set   helpheight=0
 set   hidden
-set   highlight=8r,db,es,hs,mb,Mr,nu,rs,sr,tb,vr,ws
 set nohlsearch
 set noicon
 set   ignorecase
