@@ -2,7 +2,8 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 import qualified Data.Map as M (union, fromList)
-import qualified XMonad.StackSet as W (shift)
+import Control.Concurrent (threadDelay)
+import qualified XMonad.StackSet as W (shift, greedyView, view)
 import XMonad
 import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
@@ -66,7 +67,7 @@ main = do
       , decoHeight          = 15
       }
     tiled   = ResizableTall 2 (3/100) 0.618034 []
-    mykeys _ (XConfig {modMask = modm}) = M.fromList $
+    mykeys _ conf@(XConfig {modMask = modm}) = M.fromList $
       [ ((modm, xK_x), sendMessage MirrorShrink)
       , ((modm, xK_s), sendMessage MirrorExpand)
       , ((modm, xK_b), sendMessage ToggleStruts)
@@ -75,7 +76,11 @@ main = do
       , ((modm, xK_f), sendMessage $ Toggle FULL)
       , ((modm, xK_a), spawn "audacious2")
       , ((modm, xK_n), spawn "nautilus /home/obraun")
-      , ((modm, xK_r), spawn "/home/obraun/bin/thinkpad-fn-f7")
+      , ((modm, xK_r), do spawn "xrandr --output LVDS1 --auto"
+                          spawn "xrandr --output VGA1 --auto --right-of LVDS1"
+                          io $ threadDelay (10^6)
+                          screenWorkspace 1 >>= flip whenJust (windows . W.view)
+                          windows $ W.greedyView "5")
       , ((modm, xK_z), spawn "/usr/bin/xscreensaver-command -lock")
       , ((modm .|. shiftMask, xK_t), spawn "gnome-terminal")
       , ((modm .|. shiftMask, xK_f)
@@ -90,6 +95,11 @@ main = do
       , ((0, 0x1008ff14), spawn "audacious2 -t")
       , ((0, 0x1008ff15), spawn "audacious2 -s")
       ]
+      ++
+      [( (modm .|. controlMask, k)
+       , do screenWorkspace 1 >>= flip whenJust (windows . W.view)
+            windows $ W.greedyView i)
+      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]]
     myManageHook :: ManageHook
     myManageHook = composeAll . concat $
         [ [ title =? t --> doFloat | t <- myTitleFloats]
