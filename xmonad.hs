@@ -32,8 +32,8 @@ main = do
     , layoutHook = smartBorders $
                    maximize $
                    avoidStruts $
-                   mkToggle (FULL ?? SHOWCONKY ?? SHOWALL ?? EOT) (
-                           Mirror tiled
+                   mkToggle (FULL ?? SHOWCONKY ?? SHOWALL ?? EOT)
+                      (    Mirror tiled
                        ||| tiled
                        ||| noBorders Full)
                    ||| tabbed shrinkText myTabConfig
@@ -74,19 +74,15 @@ main = do
       , ((modm, xK_c), sendMessage $ Toggle SHOWCONKY)
       , ((modm, xK_v), sendMessage $ Toggle SHOWALL)
       , ((modm, xK_f), sendMessage $ Toggle FULL)
-      , ((modm, xK_a), spawn "audacious2")
-      , ((modm, xK_n), spawn "nautilus /home/obraun")
+      , ((modm, xK_n), spawn "nautilus")
       , ((modm, xK_r), do spawn "xrandr --output LVDS1 --auto"
                           spawn "xrandr --output VGA1 --auto --right-of LVDS1"
                           io $ threadDelay (10^6)
                           screenWorkspace 1 >>= flip whenJust (windows . W.view)
                           windows $ W.greedyView "5")
-      , ((modm, xK_z), spawn "/usr/bin/xscreensaver-command -lock")
-      , ((modm .|. shiftMask, xK_t), spawn "gnome-terminal")
-      , ((modm .|. shiftMask, xK_f)
-        , withFocused (sendMessage . maximizeRestore))
-      , ((modm .|. shiftMask, xK_g     ), windowPromptGoto  defaultXPConfig)
-      , ((modm .|. shiftMask, xK_b     ), windowPromptBring defaultXPConfig)
+      , ((modm .|. shiftMask, xK_f), withFocused (sendMessage . maximizeRestore))
+      , ((modm .|. shiftMask, xK_g), windowPromptGoto  defaultXPConfig)
+      , ((modm .|. shiftMask, xK_b), windowPromptBring defaultXPConfig)
       , ((0, 0x1008ff11), spawn "amixer -q set Master 1-")
       , ((0, 0x1008ff13), spawn "amixer -q set Master 1+")
       , ((0, 0x1008ff12), spawn "amixer -q set Master toggle")
@@ -102,19 +98,19 @@ main = do
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]]
     myManageHook :: ManageHook
     myManageHook = composeAll . concat $
-        [ [ title =? t --> doFloat | t <- myTitleFloats]
-        , [ className =? c --> doFloat | c <- myClassFloats ]
-        , [ resource =? c --> doFloat | c <- myResourceFloats ]
+        [ [ title     =? t --> doFloat | t <- myTitleFloats    ]
+        , [ className =? c --> doFloat | c <- myClassFloats    ]
+        , [ resource  =? c --> doFloat | c <- myResourceFloats ]
         , [ composeOne [isFullscreen -?> doFullFloat] ]
-        , [ className   =? "stalonetray"   --> doIgnore
-          , className   =? "Chromium-browser"        --> doF(W.shift "2")
-          , className   =? "Eclipse"       --> doF(W.shift "7")
-          , className   =? "SeaMonkey" --> doF(W.shift "9")
+        , [ className   =? "stalonetray"       --> doIgnore
+          , className   =? "Chromium-browser"  --> doF (W.shift "2")
+          , className   =? "Eclipse"           --> doF (W.shift "7")
+          , className   =? "SeaMonkey"         --> doF (W.shift "9")
           ]
         ]
         where
-            myTitleFloats = ["pqiv","gxmessage","MPlayer"]
-            myClassFloats = ["Pinentry"]
+            myTitleFloats    = ["pqiv","gxmessage","MPlayer"]
+            myClassFloats    = ["Pinentry","Gimp"]
             myResourceFloats = ["sun-awt-X11-XFramePeer"]
 
 data Showconky = SHOWCONKY deriving (Read, Show, Eq, Typeable)
