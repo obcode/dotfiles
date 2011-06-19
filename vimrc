@@ -148,6 +148,7 @@ au BufEnter *.lhs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
 au FileType haskell setl foldmethod=marker
 au FileType haskell setl set foldmarker={{{,}}}
 au FileType haskell setl foldlevelstart=2
+au FileType haskell setl iskeyword=a-z,A-Z,_,.,39
 
 " Java
 
