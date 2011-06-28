@@ -140,13 +140,14 @@ filetype indent on
 
 let g:haddock_browser="/usr/bin/chromium"
 "let g:haddock_browser_callformat="%s file://%s >/dev/null 2>&1 &"
+let g:haddock_indexfiledir="/home/obraun/.vim/"
 
 au BufEnter *.hs compiler ghc
 au BufEnter *.hs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
 au BufEnter *.lhs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
 
 au FileType haskell setl foldmethod=marker
-au FileType haskell setl set foldmarker={{{,}}}
+au FileType haskell setl foldmarker={{{,}}}
 au FileType haskell setl foldlevelstart=2
 au FileType haskell setl iskeyword=a-z,A-Z,_,.,39
 
