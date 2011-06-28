@@ -174,4 +174,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" supertab
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+
 " vim:tw=70 et sw=4 comments=\:\"
