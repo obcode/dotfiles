@@ -87,10 +87,11 @@ main = do
       , ((0, 0x1008ff11), spawn "amixer -q set Master 1-")
       , ((0, 0x1008ff13), spawn "amixer -q set Master 1+")
       , ((0, 0x1008ff12), spawn "amixer -q set Master toggle")
-      , ((0, 0x1008ff17), spawn "audacious2 -f")
-      , ((0, 0x1008ff16), spawn "audacious2 -r")
-      , ((0, 0x1008ff14), spawn "audacious2 -t")
-      , ((0, 0x1008ff15), spawn "audacious2 -s")
+      , ((0, 0x1008ff81), spawn "audacious -t")
+      , ((0, 0x1008ff17), spawn "audacious -f")
+      , ((0, 0x1008ff16), spawn "audacious -r")
+      , ((0, 0x1008ff14), spawn "audacious -t")
+      , ((0, 0x1008ff15), spawn "audacious -s")
       ]
       ++
       [( (modm .|. controlMask, k)
