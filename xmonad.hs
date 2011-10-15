@@ -106,6 +106,7 @@ main = do
         , [ composeOne [isFullscreen -?> doFullFloat] ]
         , [ className   =? "stalonetray"       --> doIgnore
           , className   =? "Chromium-browser"  --> doF (W.shift "2")
+          , className   =? "Google-chrome"     --> doF (W.shift "2")
           , className   =? "Eclipse"           --> doF (W.shift "7")
           , className   =? "SeaMonkey"         --> doF (W.shift "9")
           ]
