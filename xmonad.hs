@@ -75,7 +75,7 @@ main = do
       , ((modm, xK_v), sendMessage $ Toggle SHOWALL)
       , ((modm, xK_f), sendMessage $ Toggle FULL)
       , ((modm, xK_n), spawn "nautilus")
-      , ((modm, xK_o), spawn "xclip -o | xargs chromium")
+      , ((modm, xK_o), spawn "xclip -o | xargs google-chrome")
       , ((modm, xK_r), do spawn "xrandr --output LVDS1 --auto"
                           spawn "xrandr --output VGA1 --auto --right-of LVDS1"
                           io $ threadDelay (10^6)
