@@ -17,6 +17,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.ResizeScreen
 import XMonad.Layout.Tabbed
+import XMonad.Layout.WindowNavigation
 import XMonad.Prompt
 import XMonad.Prompt.Window
 import XMonad.Util.Run
@@ -32,6 +33,7 @@ main = do
     , layoutHook = smartBorders $
                    maximize $
                    avoidStruts $
+                   windowNavigation $
                    mkToggle (FULL ?? SHOWCONKY ?? SHOWALL ?? EOT)
                       (    Mirror tiled
                        ||| tiled
@@ -92,6 +94,14 @@ main = do
       , ((0, 0x1008ff16), spawn "audacious -r")
       , ((0, 0x1008ff14), spawn "audacious -t")
       , ((0, 0x1008ff15), spawn "audacious -s")
+      , ((modm,                 xK_Right), sendMessage $ Go R)
+      , ((modm,                 xK_Left ), sendMessage $ Go L)
+      , ((modm,                 xK_Up   ), sendMessage $ Go U)
+      , ((modm,                 xK_Down ), sendMessage $ Go D)
+      , ((modm .|. controlMask, xK_Right), sendMessage $ Swap R)
+      , ((modm .|. controlMask, xK_Left ), sendMessage $ Swap L)
+      , ((modm .|. controlMask, xK_Up   ), sendMessage $ Swap U)
+      , ((modm .|. controlMask, xK_Down ), sendMessage $ Swap D)
       ]
       ++
       [( (modm .|. controlMask, k)
