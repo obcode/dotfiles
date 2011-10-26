@@ -40,7 +40,7 @@ main = do
                        ||| noBorders Full)
                    ||| tabbed shrinkText myTabConfig
     , terminal = "xterm"
-    , focusedBorderColor = "#00ff00"
+    , focusedBorderColor = "cyan"
     , modMask = mod4Mask
     , startupHook = setWMName "LG3D"
     , focusFollowsMouse = False
