@@ -1,0 +1,12 @@
+unbind down  any
+unbind up    any
+unbind right any
+unbind left  any
+bind   down  window scrollDown(16)
+bind   right window scrollRight(16)
+bind   up    window scrollUp(16)
+bind   left  window scrollLeft(16)
+bind   down  fullScreen nextPage
+bind   right fullscreen nextPage
+bind   up    fullScreen prevPage
+bind   left  fullScreen prevPage
