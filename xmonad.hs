@@ -30,9 +30,10 @@ main = do
     { logHook = dynamicLogWithPP obPP
                     { ppOutput = hPutStrLn h }
     , keys = \c -> mykeys c `M.union` keys defaultConfig c
-    , layoutHook = smartBorders $
-                   maximize $
+    , layoutHook =
                    avoidStruts $
+                   smartBorders $
+                   maximize $
                    windowNavigation $
                    mkToggle (FULL ?? SHOWCONKY ?? SHOWALL ?? EOT)
                       (    Mirror tiled
