@@ -7,6 +7,7 @@ import qualified XMonad.StackSet as W (shift, greedyView, view)
 import XMonad
 import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
@@ -25,11 +26,10 @@ import XMonad.Util.Run
 main :: IO ()
 main = do
   h <- spawnPipe "xmobar ~/.xmonad/xmobar.config"
-  sp <- mkSpawner
   xmonad $ defaultConfig
     { logHook = dynamicLogWithPP obPP
                     { ppOutput = hPutStrLn h }
-    , keys = \c -> mykeys sp c `M.union` keys defaultConfig c
+    , keys = \c -> mykeys c `M.union` keys defaultConfig c
     , layoutHook = smartBorders $
                    maximize $
                    avoidStruts $
@@ -44,7 +44,8 @@ main = do
     , modMask = mod4Mask
     , startupHook = setWMName "LG3D"
     , focusFollowsMouse = False
-    , manageHook    = manageSpawn sp <+> myManageHook
+    , manageHook    = manageSpawn <+> myManageHook
+    , handleEventHook    = fullscreenEventHook -- Only in darcs xmonad-contrib
     }
  where
     obPP :: PP
@@ -69,7 +70,7 @@ main = do
       , decoHeight          = 15
       }
     tiled   = ResizableTall 2 (3/100) 0.618034 []
-    mykeys _ conf@(XConfig {modMask = modm}) = M.fromList $
+    mykeys conf@(XConfig {modMask = modm}) = M.fromList $
       [ ((modm, xK_x), sendMessage MirrorShrink)
       , ((modm, xK_s), sendMessage MirrorExpand)
       , ((modm, xK_b), sendMessage ToggleStruts)
@@ -86,6 +87,7 @@ main = do
       , ((modm .|. shiftMask, xK_f), withFocused (sendMessage . maximizeRestore))
       , ((modm .|. shiftMask, xK_g), windowPromptGoto  defaultXPConfig)
       , ((modm .|. shiftMask, xK_b), windowPromptBring defaultXPConfig)
+      , ((modm .|. shiftMask, xK_x), spawn "killall xmobar")
       , ((0, 0x1008ff11), spawn "amixer -q set Master 1-")
       , ((0, 0x1008ff13), spawn "amixer -q set Master 1+")
       , ((0, 0x1008ff12), spawn "amixer -q set Master toggle")
@@ -129,10 +131,9 @@ main = do
 data Showconky = SHOWCONKY deriving (Read, Show, Eq, Typeable)
 
 instance Transformer Showconky Window where
-    transform _ x k = k (resizeHorizontal 400 x)
+    transform _ x k = k (resizeHorizontal 400 x) (const x)
 
 data ShowAll = SHOWALL deriving (Read, Show, Eq, Typeable)
 
 instance Transformer ShowAll Window where
-    transform _ x k = k (resizeVertical 750 x)
-
+    transform _ x k = k (resizeVertical 750 x) (const x)
