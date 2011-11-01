@@ -88,7 +88,6 @@ main = do
       , ((modm .|. shiftMask, xK_f), withFocused (sendMessage . maximizeRestore))
       , ((modm .|. shiftMask, xK_g), windowPromptGoto  defaultXPConfig)
       , ((modm .|. shiftMask, xK_b), windowPromptBring defaultXPConfig)
-      , ((modm .|. shiftMask, xK_x), spawn "killall xmobar")
       , ((0, 0x1008ff11), spawn "amixer -q set Master 1-")
       , ((0, 0x1008ff13), spawn "amixer -q set Master 1+")
       , ((0, 0x1008ff12), spawn "amixer -q set Master toggle")
