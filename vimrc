@@ -127,8 +127,10 @@ filetype plugin on
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat='pdf'
-let g:Tex_CompileRule_pdf='pdflatex -interaction=nonstopmode $* ; xpdf -remote localhost -reload'
-let g:Tex_ViewRule_pdf='xpdf -remote localhost -z page'
+let g:Tex_CompileRule_pdf='pdflatex -interaction=nonstopmode $*'
+"let g:Tex_CompileRule_pdf='pdflatex -interaction=nonstopmode $* ; xpdf -remote localhost -reload'
+"let g:Tex_ViewRule_pdf='xpdf -remote localhost -z page'
+let g:Tex_ViewRule_pdf='/Applications/Skim.app/Contents/MacOS/Skim'
 let g:Tex_FoldedEnvironments='frame,itemize'
 let g:Tex_Env_frame = "\\begin{frame}[fragile]\<CR>{<++>}\<CR>\\begin{itemize}[<+->]\<CR>\\item <++>\<CR>\\end{itemize}\<CR>\\end{frame}<++>"
 let g:Tex_Com_lstinline = "\\lstinline|<++>|<++>"
