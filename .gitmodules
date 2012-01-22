@@ -27,7 +27,7 @@
 	url = git://github.com/edsono/vim-matchit.git
 [submodule "vim/bundle/vim-align"]
 	path = vim/bundle/vim-align
-	url = https://github.com/tsaleh/vim-align
+	url = git://github.com/tsaleh/vim-align.git
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
