@@ -104,6 +104,9 @@ map <F2>   mr:retab<cr>:%s/\s\+$//g<cr>`r
 imap <F2>   <esc><F2>a
 map <F3>  :call ToggleListOption()<cr>
 
+map <F4>  :BufExplorer<cr>
+imap <F4>   <esc><F4>a
+
 nmap <F8> :TagbarToggle<CR>
 
 noremap Y y$
