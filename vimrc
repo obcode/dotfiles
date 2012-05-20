@@ -91,7 +91,7 @@ set   wrapmargin=1
 set nowritebackup
 set autowrite
 set list
-set listchars=tab:»·,trail:·
+set listchars=tab:»·,trail:·,extends:#,nbsp:.
 set incsearch
 set wildmenu
 set exrc
