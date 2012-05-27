@@ -143,7 +143,6 @@ au BufEnter *.tex set tw=80
 
 " Haskellmode
 "
-filetype plugin on
 filetype indent on
 
 let g:haddock_browser="/usr/bin/chromium"
@@ -211,5 +210,8 @@ set statusline+=%*
 
 " supertab
 "let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+
+" Go
+au BufRead,BufNewFile *.go set filetype=go
 
 " vim:tw=70 et sw=4 comments=\:\"
