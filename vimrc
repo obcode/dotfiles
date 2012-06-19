@@ -8,6 +8,7 @@ call pathogen#helptags()
 
 autocmd  BufRead *.htm,*.html se isk+=:,/,~
 autocmd FileType make :set noexpandtab
+autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn set ft=markdown
 
 " color
 
