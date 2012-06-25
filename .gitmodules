@@ -52,3 +52,6 @@
 [submodule "vim/bundle/vim-markdownfootnotes"]
 	path = vim/bundle/vim-markdownfootnotes
 	url = git://github.com/vim-pandoc/vim-markdownfootnotes.git
+[submodule "vim/bundle/vim-pandoc-extras"]
+	path = vim/bundle/vim-pandoc-extras
+	url = git://github.com/vim-pandoc/vim-pandoc-extras.git
