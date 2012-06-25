@@ -46,3 +46,9 @@
 [submodule "vim/bundle/vim-golang"]
 	path = vim/bundle/vim-golang
 	url = git://github.com/jnwhiteh/vim-golang.git
+[submodule "vim/bundle/vim-pandoc"]
+	path = vim/bundle/vim-pandoc
+	url = git://github.com/vim-pandoc/vim-pandoc.git
+[submodule "vim/bundle/vim-markdownfootnotes"]
+	path = vim/bundle/vim-markdownfootnotes
+	url = git://github.com/vim-pandoc/vim-markdownfootnotes.git
