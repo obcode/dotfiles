@@ -6,7 +6,7 @@ call pathogen#helptags()
 
 " autocommands
 
-autocmd  BufRead *.htm,*.html se isk+=:,/,~
+autocmd BufRead *.htm,*.html se isk+=:,/,~
 autocmd FileType make :set noexpandtab
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn,*.txt set ft=pandoc
 
@@ -214,5 +214,11 @@ set statusline+=%*
 
 " Go
 au BufRead,BufNewFile *.go set filetype=go
+
+" Pandoc
+au FileType pandoc map <F5> :w<CR>:PandocHtml<CR><ESC>
+au FileType pandoc imap <F5>   <esc><F5>a
+au FileType pandoc map <F6> :w<CR>:PandocPdf<CR><ESC>
+au FileType pandoc imap <F6>   <esc><F6>a
 
 " vim:tw=70 et sw=4 comments=\:\"
