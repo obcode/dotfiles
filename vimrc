@@ -185,8 +185,12 @@ endfunction
 
 " Java
 
-au BufEnter *.java  setl errorformat=%Z%f:%l:\ %m,%A%p^,%-G%*[^sl]%.%#
-au BufEnter *.java  setl makeprg=javac\ %\ 2>&1\ \\\|\ vim-javac-filter
+au Filetype java set makeprg=javac\ %
+au Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+au FileType java map  <F5> <CR>:make<CR>
+au FileType java imap <F5> <esc><F5>a
+au FileType java map  <F6> :!echo %\|awk -F. '{print $1}'\|xargs java<CR>
+au FileType java imap <F6> <esc><F6>a
 
 " Scala
 
