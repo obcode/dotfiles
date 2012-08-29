@@ -225,4 +225,7 @@ au FileType pandoc imap <F5>   <esc><F5>a
 au FileType pandoc map <F6> :w<CR>:PandocPdf<CR><ESC>
 au FileType pandoc imap <F6>   <esc><F6>a
 
+" Neocomplcache
+let g:neocomplcache_enable_at_startup = 1
+
 " vim:tw=70 et sw=4 comments=\:\"
