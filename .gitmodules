@@ -64,3 +64,6 @@
 [submodule "vim/bundle/vimproc"]
 	path = vim/bundle/vimproc
 	url = https://github.com/Shougo/vimproc
+[submodule "vim/bundle/vim2hs"]
+	path = vim/bundle/vim2hs
+	url = https://github.com/dag/vim2hs
