@@ -228,4 +228,7 @@ au FileType pandoc imap <F6>   <esc><F6>a
 " Neocomplcache
 let g:neocomplcache_enable_at_startup = 1
 
+" ghcmod-vim
+autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+
 " vim:tw=70 et sw=4 comments=\:\"

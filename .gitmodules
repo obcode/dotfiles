@@ -58,3 +58,9 @@
 [submodule "vim/bundle/neco-ghc"]
 	path = vim/bundle/neco-ghc
 	url = https://github.com/ujihisa/neco-ghc
+[submodule "vim/bundle/ghcmod-vim"]
+	path = vim/bundle/ghcmod-vim
+	url = https://github.com/eagletmt/ghcmod-vim
+[submodule "vim/bundle/vimproc"]
+	path = vim/bundle/vimproc
+	url = https://github.com/Shougo/vimproc
