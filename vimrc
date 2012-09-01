@@ -187,6 +187,7 @@ endfunction
 
 au Filetype java set makeprg=javac\ %
 au Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+au Filetype java set foldmethod=syntax
 au FileType java map  <F5> <CR>:make<CR>
 au FileType java imap <F5> <esc><F5>a
 au FileType java map  <F6> :!echo %\|awk -F. '{print $1}'\|xargs java<CR>
