@@ -1,0 +1,365 @@
+#
+#
+macro index <F2> "<enter-command>unset wait_key\n<pipe-entry>getXThread\n<enter-command>set wait_key\n"
+macro pager <F2> "<enter-command>unset wait_key\n<pipe-entry>getXThread\n<enter-command>set wait_key\n"
+macro index <F3> "<enter-command>unset wait_key\n<shell-escape>mairix -v -p\n<enter-command>set wait_key\n"
+macro pager <F3> "<enter-command>unset wait_key\n<shell-escape>mairix -v -p\n<enter-command>set wait_key\n"
+
+macro index I "c!\n"
+macro pager I "c!\n"
+macro index C "c\t\t" "get me to the new mail screen"
+macro pager C "c\t\t" "get me to the new mail screen"
+
+# Command bind :
+# Syntax: bind <map> <key> <function>
+# Values for <map>:
+# generic, alias, attach, browser, editor, index, compose, pager, pgp, postpone
+# Special values for <key>: \t, <tab>, \r, \n, \e, <esc>, <up>, <down>,
+#       <left>, <right>, <pageup>, <pagedown>, <backspace>, <delete>,
+#       <insert>, <enter>, <home>, <end>, <space>, <f1>,...,<f10>
+#
+# Take care, there are some defaults hardcoded in keymap.c:km_init()
+# Most defaults (Op*) are defined in functions.h.
+
+#
+# Generic keybindings (for all menus except pager!):
+#
+macro   generic \e1     ":source ~/.mutt/gpg.rc\n" \
+                        "Switch to GNU-PG"
+macro   generic \e2     ":source ~/.mutt/pgp2.rc\n" \
+                        "Switch to PGP 2.*"
+macro   generic \e5     ":source ~/.mutt/pgp5.rc\n" \
+                        "Switch to PGP 5.*"
+macro   generic \e6     ":source ~/.mutt/pgp6.rc\n" \
+                        "Switch to PGP 6.*"
+macro   generic <f1>    "!zless /usr/share/doc/mutt/manual.txt.gz\n" \
+                        "Show Mutt documentation"
+
+#
+# index, OpMain, MENU_MAIN
+# (Main Index)
+#
+
+bind    index   <up>    previous-entry
+bind    index   <down>  next-entry
+bind    index   <right> display-message
+macro   index   <left>  "c?"
+bind    index   <delete> delete-message
+macro   index   <return> ":set weed\n<display-message>" \
+                        "Display message with header weeding switched on"
+macro   index   <f1>    "!zless /usr/share/doc/mutt/manual.txt.gz\n" \
+                        "Show Mutt documentation"
+bind    index   *       flag-message
+bind    index   =       noop
+macro   index   A       ":set pipe_decode\n|mail2muttalias.py\n:source ~/.mutt/aliases\n:unset pipe_decode\n" \
+                        "Create new alias from the actual message"
+bind    index   \Ca     first-entry
+#macro  index   \ea     "!~/.mutt/mutt-alias.pl\n:source ~/.mutt/aliases\n"
+macro   index   \ea     "!$EDITOR ~/.mutt/aliases\n:source ~/.mutt/aliases\n" \
+                        "Edit aliases file and reload it"
+#macro  index   \Cb     ":set pipe_decode\n|urlview\n:unset pipe_decode\n" \
+#                       "call urlview to extract URLs out of a message"
+macro   index   U       ":set pipe_decode\n|urlview\n:unset pipe_decode\n" \
+                        "call urlview to extract URLs out of a message"
+macro   index   \eb     "/~B " "Search in message headers and boddies"
+#bind   index   C       noop
+#bind   index   \Ce     last-entry
+macro   index   \ee     ":unset weed\n<resend-message>" \
+                        "Edit and resent message with full headers"
+bind    index   g       change-folder
+bind    index   G       group-reply
+bind    index   \eg     change-folder-readonly
+macro   index   h       ":unset weed\n<display-message>" \
+                        "Display message with complete header"
+bind    index   J       noop
+bind    index   K       noop
+bind    index   n       next-entry
+bind    index   \Cn     search-next
+#bind   index   P       recall-message
+bind    index   p       previous-entry
+bind    index   \eq     query
+macro   index   Q       ":set quit=yes\nq" "Quit mutt without asking"
+macro   index   \er     ":source ~/.muttrc\n" "Reload muttrc"
+#bind   index   S       copy-message
+macro   index   \eu     "|uudeview -\n" "UUdecode Mail(s)"
+bind    index   x       sync-mailbox
+bind    index   y       print-message
+
+#bind   index   ???     display-toggle-weed
+#bind   index   ???     next-thread
+#bind   index   ???     read-subthread
+#bind   index   ???     resend-message
+#bind   index   ???     tag-subthread
+#bind   index   ???     undelete-subthread
+#bind   index   ???     next-unread
+#bind   index   ???     previous-unread
+#bind   index   ???     decrypt-copy
+#bind   index   ???     decrypt-save
+#bind   index   ???     search-opposite
+#bind   index   ???     current-top
+#bind   index   ???     current-middle
+#bind   index   ???     current-bottom
+#bind   index   ???     exit
+
+#
+# pager, OpPager, MENU_PAGER
+# (Message Pager)
+#
+
+bind    pager   <up>    previous-line
+bind    pager   <down>  next-line
+bind    pager   <left>  previous-entry
+bind    pager   <right> next-entry
+bind    pager   <delete> delete-message
+macro   pager   <f1>    "!zless /usr/share/doc/mutt/manual.txt.gz\n" \
+                        "Show Mutt documentation"
+bind    pager   ^       noop
+bind    pager   *       flag-message
+macro   pager   \;      "<exit><tag-prefix>" "Goto index and enter tag-prefix"
+macro   pager   \e1     ":source ~/.mutt/gpg.rc\n<exit><display-message>" \
+                        "switch to GNU-PG and redisplay message"
+macro   pager   \e2     ":source ~/.mutt/pgp2.rc\n<exit><display-message>" \
+                        "switch to PGP 2.* and redisplay message"
+macro   pager   \e5     ":source ~/.mutt/pgp5.rc\n<exit><display-message>" \
+                        "switch to PGP 5.* and redisplay message"
+macro   pager   \e6     ":source ~/.mutt/pgp6.rc\n<exit><display-message>" \
+                        "switch to PGP 6.* and redisplay message"
+macro   pager   A       ":set pipe_decode\n|mail2muttalias.py\n:source ~/.mutt/aliases\n:unset pipe_decode\n" \
+                        "Create new alias from the actual message"
+bind    pager   \Ca     top
+#macro  pager   \ea     "!~/.mutt/mutt-alias.pl\n:source ~/.mutt/source_me\n"
+macro   pager   \ea     "!$EDITOR ~/.mutt/aliases\n:source ~/.mutt/aliases\n" \
+                        "edit aliases file and reload it"
+#macro  pager   \Cb     ":set pipe_decode\n|urlview\n:unset pipe_decode\n" \
+#                       "call urlview to extract URLs out of a message"
+macro   pager   U       ":set pipe_decode\n|urlview\n:unset pipe_decode\n" \
+                        "call urlview to extract URLs out of a message"
+#bind   pager   C       copy-message
+bind    pager   \ec     noop
+#bind   pager   \Ce     bottom
+macro   pager   \ee     ":unset weed\n<resend-message>" \
+                        "Edit and resent message with full headers"
+macro   pager   \Cf     "<forget-passphrase><exit><display-message>" \
+                        "Forget passphrase and redisplay message"
+macro   pager   \ef     "|view-x-face\n" "Show X-Face"
+bind    pager   g       change-folder
+bind    pager   G       group-reply
+bind    pager   \eg     change-folder-readonly
+macro   pager   \e\e0   ":set pager_index_lines=4\n:macro pager I \\e\\e1 toggle\\ pager_index_lines\n" "internal function"
+macro   pager   \e\e1   ":set pager_index_lines=0\n:macro pager I \\e\\e0 toggle\\ pager_index_lines\n" "internal function"
+macro   pager   I       "\e\e1" "toggle pager_index_lines"
+macro   pager   l       "<exit><limit>" "Goto index and limit"
+macro   pager   \el     "|less -c\n"  "View plain message using less"
+bind    pager   n       next-entry
+bind    pager   \Cn     search-next
+macro   pager   \en     "|nadc\n" "Write complaint using nadc"
+bind    pager   p       previous-entry
+#bind   pager   P       recall-message
+bind    pager   \Cp     noop
+macro   pager   \eq     "<exit><query>" "Go to index and start a query."
+macro   pager   \er     "|gpgfetchkeys\n<exit><display-message>" \
+                        "Request used keys from keyserver"
+macro   pager   \eR     "|gpgfetchkeys -f\n<exit><display-message>" \
+                        "Request used keys from keyserver"
+#bind   pager   S       copy-message
+macro   pager   \et     "|mailhops|less -c\n" "Show trace of mail routing"
+macro   pager   \eu     "|uudeview -\n" "uudecode mail"
+macro   pager   \ev     "|gpg -v -o -|less -c\n" "View PGP key with signatures"
+bind    pager   w       previous-page           # page up like in less
+macro   pager   x       "<exit><sync-mailbox>" "Goto index and sync mailbox"
+bind    pager   y       print-message
+
+macro pager J "!gpg --keyserver wwwkeys.eu.pgp.net --recv-key " "Get PGP Key"
+macro pager K "!gpg --lsign-key " "Sign PGP Key"
+
+#bind   pager   ???     next-thread
+#bind   pager   ???     next-subthread
+#bind   pager   ???     previous-thread
+#bind   pager   ???     read-subthread
+#bind   pager   ???     resend-message
+#bind   pager   ???     skip-quoted
+#bind   pager   ???     undelete-subthread
+#bind   pager   ???     search-opposite
+#bind   pager   ???     next-unread
+#bind   pager   ???     previous-new
+#bind   pager   ???     previous-unread
+#bind   pager   ???     half-up
+#bind   pager   ???     half-down
+#bind   pager   ???     forget-passphrase
+#bind   pager   ???     decrypt-copy
+bind    pager   \eS     decrypt-save
+
+macro index M "<enter-command>set wait_key\n<pipe-entry>~/bin/getMailbox\n<enter-command>set wait_key\n"
+macro pager M "<enter-command>set wait_key\n<pipe-entry>~/bin/getMailbox\n<enter-command>set wait_key\n"
+
+#
+# attach, OpAttach+OpGeneric, MENU_ATTACH
+# (View Attachments Menu)
+#
+
+#macro  attach  \Cb     ":set pipe_decode\n|urlview\n:unset pipe_decode\n" \
+#                       "Call urlview to extract URLs out of a message"
+macro   attach  U       ":set pipe_decode\n|urlview\n:unset pipe_decode\n" \
+                        "Call urlview to extract URLs out of a message"
+bind    attach  G       group-reply
+bind    attach  i       exit
+macro   attach  \el     "|less -c\n" "View plain message using less"
+                                                # view plain message
+bind    attach  Q       exit
+macro   attach  \eu     "|uudeview -\n" "uudecode attachment"
+                                                # uudecode attachment
+bind    attach  v       view-attach
+bind    attach  y       print-entry
+
+#bind   attach  ???     search-opposite
+#bind   attach  ???     current-top
+#bind   attach  ???     current-middle
+#bind   attach  ???     current-bottom
+
+bind  attach  <left>   exit
+bind  attach  <right>  view-attach
+
+
+
+#
+# compose, OpCompose+OpGerneric, MENU_COMPOSE
+# (Composing Menu, shows Attachments beforesending)
+#
+
+bind    compose <insert> attach-file
+bind    compose <delete> detach-file
+macro   compose \ed     "<pgp-menu>a0xBD8B050D\n\n" "Sign with DSA key"
+macro   compose \er     "<pgp-menu>a0xDD08DD6D\n\n" "Sign with RSA key"
+macro   compose \el     "|less -c\n" "View plain message using less"
+macro   compose \Cp     "Fpgp +clearsig=on -fast\ny" \
+                        "PGP sign mail without MIME"
+bind    compose Q       exit
+#macro  compose S       "Fpgp +clearsig=on -fast\ny^T^Uapplication/pgp; format=text; x-action=sign\n" \
+#                       "PGP sign mail with oldstyle MIME"
+bind    compose \et     toggle-recode
+bind    compose v       view-attach
+
+#bind   compose ???     search-opposite
+#bind   compose ???     current-top
+#bind   compose ???     current-middle
+#bind   compose ???     current-bottom
+
+
+
+#
+# browser, OpBrowser+OpGeneric, MENU_FOLDER
+# (File-Browser. Shows files in a directory)
+#
+
+bind    browser C       check-new
+bind  browser <right>  select-entry
+bind  browser <left>   exit
+
+
+#bind   browser ???     search-opposite
+#bind   browser ???     current-top
+#bind   browser ???     current-middle
+#bind   browser ???     current-bottom
+
+
+
+#
+# alias, OpGeneric, MENU_ALIAS
+# (Lists all aliases)
+#
+
+#bind   alias   ???     search-opposite
+#bind   alias   ???     current-top
+#bind   alias   ???     current-middle
+#bind   alias   ???     current-bottom
+
+
+
+#
+# pgp, OpPgp+OpGeneric, MENU_PGP
+# (Lists all matching PGP Keys from Keyring)
+#
+
+bind    pgp     \Cn     search-next
+bind    pgp     v       view-name
+
+#bind   pgp     ???     search-opposite
+#bind   pgp     ???     current-top
+#bind   pgp     ???     current-middle
+#bind   pgp     ???     current-bottom
+
+
+
+#
+# query, OpQuery, MENU_QUERY
+# (Lists all matching Query results)
+#
+
+bind    query   \eq     query
+
+#bind   query   ???     search-opposite
+#bind   query   ???     current-top
+#bind   query   ???     current-middle
+#bind   query   ???     current-bottom
+
+
+
+#
+# <undef>, OpPost, MENU_POST
+# (Postpone-Menu, lists all postponed messages)
+# *not* yet configurable!!!
+#
+
+#bind   postpone        ???     search-opposite
+#bind   postpone        ???     current-top
+#bind   postpone        ???     current-middle
+#bind   postpone        ???     current-bottom
+
+
+
+#
+# editor, OpEditor, MENU_EDITOR
+# (Command line editor)
+#
+
+bind    editor  <delete> delete-char
+#bind   editor  \Cq     complete-query
+
+# for bogofilter
+#macro index d "<enter-command>unset wait_key\n<pipe-entry>bogofilter -n\n\
+#<enter-command>set wait_key\n<delete-message>"
+macro index S "<save-message><bol><kill-eol>=zzzspam\n"
+macro pager S "<save-message><bol><kill-eol>=zzzspam\n"
+
+macro index H "<copy-message><bol><kill-eol>=zzzham\n"
+macro pager H "<copy-message><bol><kill-eol>=zzzham\n"
+
+#macro index Y "T.s="
+
+## ctrl-n, ctrl-p to select next, prev folder
+## ctrl-o to open selected folder
+bind index \CP sidebar-prev
+bind index \CN sidebar-next
+bind index \CO sidebar-open
+bind pager \CP sidebar-prev
+bind pager \CN sidebar-next
+bind pager \CO sidebar-open
+
+macro index B '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager B '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+
+macro generic \CS "<enter-command>set my_cmd = \`mutt-mairix\`<return><enter-command>push \$my_cmd<return>"
+
+# Gmail-style keyboard shortcuts
+macro index,pager y "<enter-command>unset trash\n <delete-message>" "Gmail archive message"
+macro index,pager d "<enter-command>set trash=\"imaps://imap.googlemail.com/[Google Mail]/Bin\"\n <delete-message>" "Gmail delete message"
+macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index,pager ga "<change-folder>=[Google Mail]/All Mail<enter>" "Go to all mail"
+macro index,pager gs "<change-folder>=[Google Mail]/Starred<enter>" "Go to starred messages"
+macro index,pager gd "<change-folder>=[Google Mail]/Drafts<enter>" "Go to drafts""
+
+# Goobook
+
+macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
+
+# vim:ft=muttrc:tw=9999
