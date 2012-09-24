@@ -9,6 +9,7 @@ call pathogen#helptags()
 autocmd BufRead *.htm,*.html se isk+=:,/,~
 autocmd FileType make :set noexpandtab
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn,*.txt set ft=pandoc
+autocmd BufRead /tmp/mutt*      :source ~/.vim/mail.vim
 
 " color
 
