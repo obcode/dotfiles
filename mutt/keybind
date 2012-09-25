@@ -169,7 +169,7 @@ bind    pager   w       previous-page           # page up like in less
 macro   pager   x       "<exit><sync-mailbox>" "Goto index and sync mailbox"
 bind    pager   y       print-message
 
-macro pager J "!gpg --keyserver wwwkeys.eu.pgp.net --recv-key " "Get PGP Key"
+macro pager J "!gpg --keyserver wwwkeys.de.pgp.net --recv-key " "Get PGP Key"
 macro pager K "!gpg --lsign-key " "Sign PGP Key"
 
 #bind   pager   ???     next-thread
