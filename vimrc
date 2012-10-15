@@ -81,7 +81,7 @@ set   showmode
 set   suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.class,.hi
 set nostartofline
 set   splitbelow
-set   tabstop=8
+set   tabstop=4
 set nottyfast
 set nottybuiltin
 set   ttyscroll=0
