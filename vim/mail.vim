@@ -303,6 +303,7 @@ call Mail_Begining()
 " map ;HA G/Quoting /e+1<CR>ye1G}oHallo, !<ESC>Po<ESC>
   map ;HA G/^\* /e+1<CR>ye1G}oHallo ,<ESC>Po<ESC>
   map ;;  G/^\* /e+1<CR>ye1G}oHi <c-r>",<cr><ESC>
+  map ,,  G/^\* <CR>O
   map ;hh  G/^\* <CR>wwye1G}oHallo Herr <c-r>",<cr><ESC>
   map ;hf  G/^\* <CR>wwye1G}oHallo Frau <c-r>",<cr><ESC>
   map ;sh  G/^\* <CR>wwye1G}oSehr geehrter Herr <c-r>",<cr><ESC>
