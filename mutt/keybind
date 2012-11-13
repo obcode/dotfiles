@@ -10,6 +10,8 @@ macro pager I "c!\n"
 macro index C "c\t\t" "get me to the new mail screen"
 macro pager C "c\t\t" "get me to the new mail screen"
 
+bind index "^" imap-fetch-mail
+
 # Command bind :
 # Syntax: bind <map> <key> <function>
 # Values for <map>:
