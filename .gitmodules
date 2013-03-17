@@ -67,3 +67,6 @@
 [submodule "vim/bundle/vim2hs"]
 	path = vim/bundle/vim2hs
 	url = https://github.com/dag/vim2hs
+[submodule "vim/bundle/vim-hdevtools"]
+	path = vim/bundle/vim-hdevtools
+	url = git://github.com/bitc/vim-hdevtools.git

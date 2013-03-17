@@ -148,13 +148,14 @@ au BufEnter *.tex set tw=80
 "
 filetype indent on
 
-let g:haddock_browser="/usr/bin/chromium"
+let g:haddock_browser="open"
+let g:haddock_browser_callformat = "%s %s"
 "let g:haddock_browser_callformat="%s file://%s >/dev/null 2>&1 &"
-let g:haddock_indexfiledir="/home/obraun/.vim/"
+"let g:haddock_indexfiledir="/home/obraun/.vim/"
 
 au BufEnter *.hs compiler ghc
-au BufEnter *.hs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
-au BufEnter *.lhs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
+"au BufEnter *.hs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
+"au BufEnter *.lhs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
 
 au FileType haskell setl foldmethod=marker
 au FileType haskell setl foldmarker={{{,}}}
@@ -232,6 +233,11 @@ au FileType pandoc imap <F6>   <esc><F6>a
 let g:neocomplcache_enable_at_startup = 1
 
 " ghcmod-vim
-autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+"autocmd BufWritePost *.hs GhcModCheck
+
+" hdevtools
+au FileType haskell nnoremap <buffer> <F5> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F6> :HdevtoolsClear<CR>
 
 " vim:tw=70 et sw=4 comments=\:\"
