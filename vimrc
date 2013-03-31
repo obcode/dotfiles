@@ -233,7 +233,7 @@ au FileType pandoc imap <F6>   <esc><F6>a
 let g:neocomplcache_enable_at_startup = 1
 
 " ghcmod-vim
-"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 "autocmd BufWritePost *.hs GhcModCheck
 
 " hdevtools
