@@ -12,21 +12,21 @@ autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn,*.txt set ft=pan
 autocmd BufRead /tmp/mutt*      :source ~/.vim/mail.vim
 autocmd BufRead /tmp/mutt*      :set spell spelllang=de
 
-" color
-
-hi comment      ctermfg=blue   ctermbg=white guifg=blue guibg=white
-hi SpecialKey   ctermfg=red   ctermbg=yellow guifg=red guibg=yellow
-hi LineNr       term=NONE cterm=NONE
-hi normal       term=NONE
-hi nontext      term=NONE cterm=NONE ctermfg=blue   ctermbg=white
-hi search       ctermfg=white ctermbg=red     guifg=white guibg=red
-hi statusline   term=NONE cterm=NONE ctermfg=yellow ctermbg=red
-hi statuslineNC term=NONE cterm=NONE ctermfg=black  ctermbg=white
-
-hi    User1 cterm=NONE    ctermfg=red    ctermbg=black  guifg=red    guibg=black
-hi    User2 cterm=NONE    ctermfg=green  ctermbg=black  guifg=green  guibg=black
-hi    User3 cterm=NONE    ctermfg=red    ctermbg=black  guifg=red    guibg=black
-hi    User4 cterm=NONE    ctermfg=white  ctermbg=black  guifg=white   guibg=black
+"" color
+"
+"hi comment      ctermfg=blue   ctermbg=white guifg=blue guibg=white
+"hi SpecialKey   ctermfg=red   ctermbg=yellow guifg=red guibg=yellow
+"hi LineNr       term=NONE cterm=NONE
+"hi normal       term=NONE
+"hi nontext      term=NONE cterm=NONE ctermfg=blue   ctermbg=white
+"hi search       ctermfg=white ctermbg=red     guifg=white guibg=red
+"hi statusline   term=NONE cterm=NONE ctermfg=yellow ctermbg=red
+"hi statuslineNC term=NONE cterm=NONE ctermfg=black  ctermbg=white
+"
+"hi    User1 cterm=NONE    ctermfg=red    ctermbg=black  guifg=red    guibg=black
+"hi    User2 cterm=NONE    ctermfg=green  ctermbg=black  guifg=green  guibg=black
+"hi    User3 cterm=NONE    ctermfg=red    ctermbg=black  guifg=red    guibg=black
+"hi    User4 cterm=NONE    ctermfg=white  ctermbg=black  guifg=white   guibg=black
 
 fu! Options()
             let opt=""
@@ -233,11 +233,20 @@ au FileType pandoc imap <F6>   <esc><F6>a
 let g:neocomplcache_enable_at_startup = 1
 
 " ghcmod-vim
-autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-"autocmd BufWritePost *.hs GhcModCheck
+"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+autocmd BufWritePost *.hs GhcModLint
 
 " hdevtools
 au FileType haskell nnoremap <buffer> <F5> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F6> :HdevtoolsClear<CR>
+
+" Colorized
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+colorscheme solarized
+let g:solarized_visibility="high"
 
 " vim:tw=70 et sw=4 comments=\:\"
