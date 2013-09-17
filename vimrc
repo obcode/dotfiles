@@ -110,7 +110,10 @@ map <F3>  :call ToggleListOption()<cr>
 map <F4>  :BufExplorer<cr>
 imap <F4>   <esc><F4>a
 
-nmap <F8> :TagbarToggle<CR>
+map <F8>  :NERDTreeToggle<cr>
+imap <F8>   <esc><F4>a
+
+nmap <F9> :TagbarToggle<CR>
 
 noremap Y y$
 
@@ -205,13 +208,13 @@ au BufRead,BufNewFile *.scala setl filetype=scala
 " Markdown
 au BufEnter *.page  setl filetype=markdown
 
-" syntactics
+" syntastic
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_quiet_warnings=1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['tex'] }
+                           \ 'passive_filetypes': ['tex', 'c', 'cpp'] }
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -239,6 +242,39 @@ autocmd BufWritePost *.hs GhcModLint
 " hdevtools
 au FileType haskell nnoremap <buffer> <F5> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F6> :HdevtoolsClear<CR>
+
+" Manpage for word under cursor via 'K' in command mode
+runtime ftplugin/man.vim
+noremap <buffer> <silent> K :exe "Man" expand('<cword>') <CR>
+
+" C++ Development
+let g:clang_use_library = 1
+
+au BufNewFile,BufRead *.c,*.cc,*.cpp,*.h,*.cu call SetupCandCPPenviron()
+function! SetupCandCPPenviron()
+    "
+    " Search path for 'gf' command (e.g. open #include-d files)
+    "
+    "set path+=/usr/include/c++/**
+
+    "
+    " Tags
+    "
+    " If I ever need to generate tags on the fly, I uncomment this:
+    " noremap <C-F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+    set tags+=/usr/include/tags
+
+    "
+    " Especially for C and C++, use section 3 of the manpages
+    "
+    noremap <buffer> <silent> K :exe "Man" 3 expand('<cword>') <CR>
+
+    "
+    " (Cover CUDA .cu, too) Remap F7 to make
+    "
+    noremap <buffer> <special> <F7> :make<CR>
+    noremap! <buffer> <special> <F7> <ESC>:make<CR>
+endfunction
 
 " Colorized
 if has('gui_running')
