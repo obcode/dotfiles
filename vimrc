@@ -277,11 +277,7 @@ function! SetupCandCPPenviron()
 endfunction
 
 " Colorized
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+set background=dark
 colorscheme solarized
 let g:solarized_visibility="high"
 
