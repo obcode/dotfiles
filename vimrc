@@ -105,13 +105,18 @@ vmap <SPACE> mry`r
 
 map <F2>   mr:retab<cr>:%s/\s\+$//g<cr>`r
 imap <F2>   <esc><F2>a
-map <F3>  :call ToggleListOption()<cr>
+
+map <F3>  :Autoformat<cr>
+imap <F3>   <esc><F3>a
 
 map <F4>  :BufExplorer<cr>
 imap <F4>   <esc><F4>a
 
+map <F5>  :SyntasticCheck<cr>
+imap <F5>   <esc><F5>a
+
 map <F8>  :NERDTreeToggle<cr>
-imap <F8>   <esc><F4>a
+imap <F8>   <esc><F8>a
 
 nmap <F9> :TagbarToggle<CR>
 
@@ -212,6 +217,7 @@ au BufEnter *.page  setl filetype=markdown
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_quiet_warnings=1
+let g:syntastic_cpp_check_header = 1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['tex', 'c', 'cpp'] }
@@ -274,7 +280,16 @@ function! SetupCandCPPenviron()
     "
     noremap <buffer> <special> <F7> :make<CR>
     noremap! <buffer> <special> <F7> <ESC>:make<CR>
+
+    set expandtab
+
+    set formatprg=astyle\ -A4
+
 endfunction
+
+" autoformat
+let g:formatprg_args_expr_c = '"--mode=c --style=stroustrup -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+let g:formatprg_args_expr_cpp = '"--mode=c --style=stroustrup -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 
 " Colorized
 set background=dark
