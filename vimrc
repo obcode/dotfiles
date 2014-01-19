@@ -199,6 +199,7 @@ endfunction
 au Filetype java set makeprg=javac\ %
 au Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 au Filetype java set foldmethod=syntax
+au filetype java set formatprg=astyle\ --style=java
 au FileType java map  <F5> <CR>:make<CR>
 au FileType java imap <F5> <esc><F5>a
 au FileType java map  <F6> :!echo %\|awk -F. '{print $1}'\|xargs java<CR>
@@ -289,6 +290,7 @@ endfunction
 " autoformat
 let g:formatprg_args_expr_c = '"--mode=c --style=stroustrup -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 let g:formatprg_args_expr_cpp = '"--mode=c --style=stroustrup -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+let g:formatprg_args_expr_java = '"--mode=java --style=java -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 
 " Colorized
 set background=dark
