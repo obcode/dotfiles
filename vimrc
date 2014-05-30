@@ -152,47 +152,47 @@ let g:Tex_UseMakefile = 0
 let g:Tex_SmartQuoteOpen = ",,"
 au BufEnter *.tex set tw=80
 
-" Haskellmode
+"" Haskellmode
+""
+"filetype indent on
 "
-filetype indent on
-
-let g:haddock_browser="open"
-let g:haddock_browser_callformat = "%s %s"
-"let g:haddock_browser_callformat="%s file://%s >/dev/null 2>&1 &"
-"let g:haddock_indexfiledir="/home/obraun/.vim/"
-
-au BufEnter *.hs compiler ghc
-"au BufEnter *.hs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
-"au BufEnter *.lhs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
-
-au FileType haskell setl foldmethod=marker
-au FileType haskell setl foldmarker={{{,}}}
-au FileType haskell setl foldlevelstart=2
-au FileType haskell setl iskeyword=a-z,A-Z,_,.,39
-
-function! OpenHaskellFile()
-  let f = tr(matchstr(getline(line('.')), '\(import\s*qualified\|import\)\s*\zs[A-Za-z0-9.]\+'), ".", "/") . ".hs"
-  if f == ".hs"
-     echohl ErrorMsg
-     echo "Not on a valid import line!"
-     echohl NONE
-     return
-  endif
-  if filereadable(f)
-     if (&modified)
-       echohl ErrorMsg
-       echo "Current buffer is modified, save it first!"
-       echohl NONE
-     else
-       execute ':e ' . f
-     endif
-  else
-     echohl ErrorMsg
-     echo "Can't find file \"" . f . "\" in path"
-     echohl NONE
-  endif
-endfunction
-:map <silent> ghf :call OpenHaskellFile()<CR>
+"let g:haddock_browser="open"
+"let g:haddock_browser_callformat = "%s %s"
+""let g:haddock_browser_callformat="%s file://%s >/dev/null 2>&1 &"
+""let g:haddock_indexfiledir="/home/obraun/.vim/"
+"
+"au BufEnter *.hs compiler ghc
+""au BufEnter *.hs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
+""au BufEnter *.lhs setl errorformat+=%A%f:%l:\ %m,%A%f:%l:,%C%\\s%m,%Z ai tw=0
+"
+"au FileType haskell setl foldmethod=marker
+"au FileType haskell setl foldmarker={{{,}}}
+"au FileType haskell setl foldlevelstart=2
+"au FileType haskell setl iskeyword=a-z,A-Z,_,.,39
+"
+"function! OpenHaskellFile()
+"  let f = tr(matchstr(getline(line('.')), '\(import\s*qualified\|import\)\s*\zs[A-Za-z0-9.]\+'), ".", "/") . ".hs"
+"  if f == ".hs"
+"     echohl ErrorMsg
+"     echo "Not on a valid import line!"
+"     echohl NONE
+"     return
+"  endif
+"  if filereadable(f)
+"     if (&modified)
+"       echohl ErrorMsg
+"       echo "Current buffer is modified, save it first!"
+"       echohl NONE
+"     else
+"       execute ':e ' . f
+"     endif
+"  else
+"     echohl ErrorMsg
+"     echo "Can't find file \"" . f . "\" in path"
+"     echohl NONE
+"  endif
+"endfunction
+":map <silent> ghf :call OpenHaskellFile()<CR>
 
 " Java
 
@@ -220,7 +220,7 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['tex', 'c', 'cpp'] }
+                           \ 'passive_filetypes': ['tex', 'c', 'cpp', 'haskell'] }
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -239,11 +239,11 @@ au FileType pandoc map <F6> :w<CR>:PandocPdf<CR><ESC>
 au FileType pandoc imap <F6>   <esc><F6>a
 
 " Neocomplcache
-let g:neocomplcache_enable_at_startup = 1
+"let g:neocomplcache_enable_at_startup = 1
 
 " ghcmod-vim
 "autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-autocmd BufWritePost *.hs GhcModLint
+"autocmd BufWritePost *.hs GhcModLint
 
 " hdevtools
 au FileType haskell nnoremap <buffer> <F5> :HdevtoolsType<CR>
