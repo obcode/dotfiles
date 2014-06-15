@@ -29,11 +29,11 @@ alias 0-full move screenOriginX;screenOriginY screenSizeX;screenSizeY 0
 alias 1-full move screenOriginX;screenOriginY screenSizeX;screenSizeY 1
 
 # oneDisplayLayout - Places iTerm in the left half and Firefox in the right half.
-layout oneDisplayLayout 'iTerm':MAIN_FIRST #{lefthalf}
-layout oneDisplayLayout 'Firefox':REPEAT #{righthalf}
+layout oneDisplayLayout 'Terminal':MAIN_FIRST #{lefthalf}
+layout oneDisplayLayout 'MacVim':REPEAT #{righthalf}
 # twoDisplayLayout - Places iTerm in full screen in the first display and Firefox in full screen in the second display
-layout twoDisplayLayout 'iTerm':MAIN_FIRST #{0-full}
-layout twoDisplayLayout 'Firefox':REPEAT #{1-full}
+layout twoDisplayLayout 'Terminal':MAIN_FIRST #{lefthalf}
+layout twoDisplayLayout 'MacVim':REPEAT #{righthalf}
 
 # Default's directive: default layout-or-snapshot-name screen-configuration
 
@@ -64,5 +64,8 @@ bind p:shift;cmd ${topright}
 bind l:shift;alt nudge +1% +0
 
 # Focus - Brings the focus to the window in the specified position
+bind k:shift;ctrl focus up
+bind j:shift;ctrl focus down
 bind l:shift;ctrl focus right
+bind h:shift;ctrl focus left
 
