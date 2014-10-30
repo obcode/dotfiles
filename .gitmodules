@@ -37,9 +37,6 @@
 [submodule "vim/bundle/vim-latex"]
 	path = vim/bundle/vim-latex
 	url = git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex
-[submodule "vim/bundle/vim-pandoc"]
-	path = vim/bundle/vim-pandoc
-	url = git://github.com/vim-pandoc/vim-pandoc.git
 [submodule "vim/bundle/vim-markdownfootnotes"]
 	path = vim/bundle/vim-markdownfootnotes
 	url = git://github.com/vim-pandoc/vim-markdownfootnotes.git

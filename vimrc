@@ -254,7 +254,7 @@ runtime ftplugin/man.vim
 noremap <buffer> <silent> K :exe "Man" expand('<cword>') <CR>
 
 " C++ Development
-let g:clang_use_library = 1
+"let g:clang_use_library = 1
 
 au BufNewFile,BufRead *.c,*.cc,*.cpp,*.h,*.cu call SetupCandCPPenviron()
 function! SetupCandCPPenviron()
@@ -293,8 +293,9 @@ let g:formatprg_args_expr_cpp = '"--mode=c --style=stroustrup -pcH".(&expandtab 
 let g:formatprg_args_expr_java = '"--mode=java --style=java -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 
 " Colorized
-set background=dark
+set background=light
 colorscheme solarized
 let g:solarized_visibility="high"
+let g:solarized_hitrail=1
 
 " vim:tw=70 et sw=4 comments=\:\"
