@@ -2,11 +2,11 @@ vim/haddock_index.vim
 vim/haskellmode.config
 vim/.netrwhist
 vim/spell/
-vim/bundle/bufferexplorer/doc/tags
 mutt/cache
 
-/vim/bundle/a/doc/tags
-/vim/bunde/
-!/vim/bundle/a/
-!/vim/bundle/bufferexporer/
-!/vim/bundle/Vundle.vim
+vim/bundle/
+!vim/bundle/a/
+vim/bundle/a/doc/tags
+!vim/bundle/bufferexporer/
+vim/bundle/bufferexplorer/doc/tags
+!vim/bundle/Vundle.vim
