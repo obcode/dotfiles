@@ -31,6 +31,8 @@ Plugin 'edsono/vim-matchit'
 Plugin 'ervandew/supertab'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
+Plugin 'hspec/hspec.vim'
+Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'obcode/vim-scala'
 Plugin 'scrooloose/nerdcommenter'
@@ -42,6 +44,7 @@ Plugin 'tsaleh/vim-align'
 Plugin 'ujihisa/neco-ghc'
 Plugin 'vim-pandoc/vim-markdownfootnotes'
 Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 
 " other Repo
 Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
@@ -167,7 +170,7 @@ imap <F2>   <esc><F2>a
 map <F3>  :Autoformat<cr>
 imap <F3>   <esc><F3>a
 
-map <F4>  :BufExplorer<cr>
+map <F4>  :CtrlPBuffer<cr>
 imap <F4>   <esc><F4>a
 
 map <F5>  :SyntasticCheck<cr>
@@ -303,6 +306,9 @@ au FileType pandoc imap <F6>   <esc><F6>a
 "autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 "autocmd BufWritePost *.hs GhcModLint
 
+au FileType haskell map <F3>  :%!stylish-haskell<cr>
+au FileType haskell imap <F3>   <esc><F3>a
+
 " hdevtools
 au FileType haskell nnoremap <buffer> <F5> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F6> :HdevtoolsClear<CR>
@@ -343,7 +349,10 @@ function! SetupCandCPPenviron()
 
     set formatprg=astyle\ -A4
 
+
 endfunction
+
+let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
 
 " autoformat
 let g:formatprg_args_expr_c = '"--mode=c --style=stroustrup -pcH".(&expandtab ? "s".&shiftwidth : "t")'
