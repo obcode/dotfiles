@@ -45,6 +45,7 @@ Plugin 'ujihisa/neco-ghc'
 Plugin 'vim-pandoc/vim-markdownfootnotes'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plugin 'vim-scripts/a.vim'
 
 " other Repo
 Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
