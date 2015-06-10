@@ -20,7 +20,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'Raimondi/delimitMate'
-Plugin 'Rip-Rip/clang_complete'
+"Plugin 'Rip-Rip/clang_complete'
 Plugin 'Shougo/neocomplcache'
 Plugin 'Shougo/vimproc'
 Plugin 'altercation/vim-colors-solarized'
@@ -282,7 +282,7 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['tex', 'c', 'cpp', 'haskell'] }
+                           \ 'passive_filetypes': ['tex', 'c', 'cpp', 'haskell', 'scala'] }
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -299,6 +299,8 @@ au FileType pandoc map <F5> :w<CR>:PandocHtml<CR><ESC>
 au FileType pandoc imap <F5>   <esc><F5>a
 au FileType pandoc map <F6> :w<CR>:PandocPdf<CR><ESC>
 au FileType pandoc imap <F6>   <esc><F6>a
+
+let g:pandoc#folding#fdc = 0
 
 " Neocomplcache
 "let g:neocomplcache_enable_at_startup = 1
@@ -353,7 +355,7 @@ function! SetupCandCPPenviron()
 
 endfunction
 
-let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+"let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
 
 " autoformat
 let g:formatprg_args_expr_c = '"--mode=c --style=stroustrup -pcH".(&expandtab ? "s".&shiftwidth : "t")'
