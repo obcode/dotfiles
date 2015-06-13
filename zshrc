@@ -5,6 +5,7 @@ antigen use oh-my-zsh
 
 antigen bundle brew
 antigen bundle brew-cask
+antigen bundle forklift
 antigen bundle git
 antigen bundle osx
 antigen bundle vi-mode
@@ -202,63 +203,6 @@ rip () {
     diskutil unmount /dev/disk2
     abcde
     diskutil eject /dev/disk2
-}
-
-function fl {
-  if [ ! -z "$1" ]; then
-    DIR=$1
-    if [ ! -d "$DIR" ]; then
-      DIR=$(dirname $DIR)
-    fi
-    if [ "$DIR" != "." ]; then
-      PWD=`cd "$DIR";pwd`
-    fi
-  fi
-  osascript 2>&1 1>/dev/null <<END
-
-    try
-      tell application "Finder"
-        set appName to name of application file id "com.binarynights.ForkLift2"
-      end tell
-    on error err_msg number err_num
-      tell application "Finder"
-        set appName to name of application file id "com.binarynights.ForkLift"
-      end tell
-    end try
-
-    if application appName is running
-      tell application appName
-        activate
-      end tell
-    else
-      tell application appName
-        activate
-      end tell
-      repeat until application appName is running
-        delay 1
-      end repeat
-      tell application appName
-        activate
-      end tell
-    end if
-
-    delay 1
-    tell application "System Events"
-      tell application process "ForkLift"
-        try
-          set topWindow to window 1
-        on error
-          keystroke "n" using command down
-          set topWindow to window 1
-        end try
-        keystroke "g" using {command down, shift down}
-        tell sheet 1 of topWindow
-          set value of text field 1 to "$PWD"
-          keystroke return
-        end tell
-      end tell
-    end tell
-END
 }
 
 function build {
