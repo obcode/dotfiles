@@ -205,12 +205,6 @@ rip () {
     diskutil eject /dev/disk2
 }
 
-function build {
-  mkdir -p .shake
-  ghc --make Build.hs -rtsopts -with-rtsopts=-I0 \
-      -outputdir=.shake -o .shake/build && .shake/build "$@"
-}
-
 #git_prompt_info() {}
 
 # vim:ft=zsh:tw=99999
